@@ -1,42 +1,87 @@
 # UFC
-Análisis de datos en la UFC, enfocándose en la exploración de la historia de la UFC, características de eventos, combates y luchadores.  Se usarán Python y librerías como Pandas y Matplotlib para preprocesar datos, realizar EDA y construir modelos de predicción.  El objetivo es obtener información valiosa y predecir resultados de combates
-# UFC Data Analysis and Prediction Models
+Este proyecto aborda el análisis de datos de combates de la UFC en dos fases complementarias: primero, una exploración y visualización de la evolución histórica de los formatos, métodos de finalización y características de los luchadores; y segundo, la construcción y evaluación de varios modelos de clasificación (Regresión Logística, LDA, SVM, etc.) para predecir el ganador de un combate.
 
-## 1. Objetivo del análisis
+## 1. Objetivos principales
+- Explorar y entender la estructura del dataset
 
-El objetivo principal de este análisis es explorar y analizar datos relacionados con la UFC (Ultimate Fighting Championship) para obtener información valiosa sobre diversos aspectos de este deporte. Esto incluye el análisis de la historia de la UFC, las características de los eventos, los combates y los luchadores, y la construcción de modelos de predicción. 
+- Inspeccionar forma, tipos de datos y estadísticas descriptivas iniciales.
 
-## 2. Pasos técnicos
+- Cuantificar y tratar valores faltantes
 
-El análisis se lleva a cabo utilizando Python y librerías como Pandas, NumPy, Matplotlib y Seaborn.  Los pasos técnicos incluyen:
+- Identificar columnas con datos incompletos y aplicar imputación (mediana para numéricas, “NO DATA” para categóricas).
 
-* **Preprocesamiento de datos:** Carga, limpieza y transformación de los datasets `UFC` y `UFC_F`. 
-* **Análisis exploratorio de datos (EDA):** Visualización de datos para analizar eventos, combates y luchadores. 
-* **Modelado de datos:** Preparación de datos para modelos de Machine Learning, incluyendo la creación de una matriz de correlación, tratamiento de valores faltantes y codificación de variables. 
-* **Evaluación de algoritmos de Machine Learning:** Comparación de diferentes algoritmos (Regresión Logística, Análisis Discriminante Lineal, Máquina de Vectores de Soporte) para predecir resultados de combates. 
-* **Ajuste y selección del modelo:** Optimización de los parámetros del modelo seleccionado y guardado para su uso futuro. 
+- Visualizar patrones históricos
 
-## 3. Métricas obtenidas
+- Analizar la evolución anual de formatos de combate y métodos de victoria (nocaut, sumisión, decisión).
 
-El análisis proporciona diversas métricas y visualizaciones, incluyendo:
+- Describir distribuciones clave
 
-* Evolución del número de eventos de la UFC a lo largo de los años. 
-* Distribución de eventos por país, destacando el dominio de Estados Unidos.
-* Frecuencia de los métodos de finalización de los combates. 
-* Distribución de combates por categorías de peso. 
-* Proporción de combates que son por un título. 
-* Duración típica de los combates en asaltos. 
-* Evolución de los formatos de los combates a lo largo de la historia de la UFC. 
-* Análisis de la postura de los luchadores y su origen. 
-* Correlación entre golpes totales y otros aspectos técnicos. 
-* Distribución de los luchadores por edad, altura y alcance. 
-## 4. Conclusiones
+- Estudiar la distribución de edades y estadísticas de golpeo de luchadores en esquina roja vs. azul.
 
-El análisis revela información valiosa sobre la UFC, desde su historia y evolución hasta las características de los combates y los luchadores.  Las conclusiones clave incluyen:
+- Mapear asociaciones y procedencias
 
-* La UFC ha experimentado un crecimiento significativo en el número de eventos a lo largo de los años, aunque con cierta fluctuación en los últimos años. 
-* Estados Unidos es el país dominante en la organización de eventos de la UFC.
-* El análisis de los combates proporciona información sobre los métodos de finalización, la duración y otros aspectos relevantes.
-* Los modelos de predicción permiten estimar los resultados de los combates basándose en diversas características de los luchadores. 
+- Identificar las principales escuelas/asociaciones de luchadores y su distribución por país.
 
-Este proyecto proporciona una visión completa del mundo de la UFC a través del análisis de datos y la aplicación de técnicas de Machine Learning.
+- Preparar los datos para modelado
+
+- Seleccionar variables numéricas, codificar categóricas (p. ej. color de esquina) y escalarlas.
+
+- Evaluar distintos clasificadores
+
+- Comparar precisión (accuracy) de Regresión Logística, LDA, KNN, Árboles de decisión, Naive Bayes y SVM con validación cruzada a 10 folds.
+
+- Analizar curvas ROC-AUC
+
+- Medir la capacidad discriminativa (ROC-AUC) de los tres mejores modelos: LR, LDA y SVM.
+
+- Ajustar hiperparámetros del mejor modelo
+
+- Utilizar GridSearchCV para optimizar parámetros de SVM (kernel RBF) y maximizar la precisión.
+
+- Serializar el modelo final
+
+- Guardar el clasificador óptimo (modeloUFC_finalizado_joblib.sav) para su posterior despliegue.
+
+## 2. Principales conclusiones
+- Volumen y calidad de datos: Tras la limpieza, quedaron 5 144 combates con 134 variables numéricas, y en fighters_data persistieron ~93 800 valores nulos en atributos no críticos.
+
+- Evolución de formatos: A lo largo de las últimas décadas, los combates sin título (“Non-Title Fight”) dominan en número, con un ligero aumento proporcional de los combates de título.
+
+- Métodos de victoria: La decisión mayoritaria crece de forma constante, mientras que los nocauts y sumisiones mantienen participaciones más estables pero secundarias.
+
+- Distribución de edades: Tanto en esquina roja como azul, la edad de los luchadores se concentra alrededor de los 28–32 años, con una dispersión similar en ambas esquinas.
+
+- Asociaciones y geografía: EEUU y Brasil lideran el número de luchadores registrados, seguidos a distancia por asociaciones de Canadá y Reino Unido.
+
+- Desempeño de modelos:
+
+- Regresión Logística: 68,18 % ± 2,9 % de accuracy.
+
+- SVM (sin ajustar): 68,18 % ± 3,5 %.
+
+- LDA: 67,66 % ± 3,8 %.
+
+- Modelos basados en árboles y Naive Bayes quedan por debajo del 63 %.
+
+- Modelo óptimo: SVM con kernel RBF y parámetros (C=1, γ=1) alcanzó 68,02 % de accuracy en validación cruzada y fue seleccionado y guardado.
+
+## 3. Recomendaciones
+- Ampliar y depurar el dataset: Incorporar combates más recientes y variables adicionales (grappling vs. striking, datos biométricos) para reducir gaps de información.
+
+- Realizar selección de características: Aplicar métodos de feature-selection (p. ej. Recursive Feature Elimination) para quedarnos con las variables más predictivas y reducir dimensionalidad.
+
+- Probar algoritmos de ensamblado: Ensayar Random Forest, XGBoost o LightGBM y comparar su ROC-AUC frente a SVM.
+
+- Optimizar curvas ROC: Ajustar el umbral de decisión en función del análisis de coste de falsos positivos/negativos según el uso final.
+
+- Implementar pipeline reproducible: Unir limpieza, imputación, escalado y modelado en un pipeline de scikit-learn para facilitar reentrenamientos periódicos.
+
+- Validación temporal: Usar validación cruzada basada en fechas (TimeSeriesSplit) para evitar fuga de información y simular predicción en combates futuros.
+
+- Monitorizar desempeño en producción: Registrar métricas en nuevos combates y reevaluar el modelo cada cierto periodo para detectar degradación.
+
+- Explorar técnicas de balanceo: En caso de clases desbalanceadas (por método de victoria), aplicar SMOTE o submuestreo.
+
+- Visualizar importancia de variables: Con Extratrees o coeficientes de LR, identificar las características clave que más influyen en la predicción.
+
+- Documentar criterios de negocio: Coordinar con entrenadores/analistas de la UFC para integrar variables cualitativas que el modelo aún no considera.
