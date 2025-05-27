@@ -2,45 +2,25 @@
 Este proyecto aborda el análisis de datos de combates de la UFC en dos fases complementarias: primero, una exploración y visualización de la evolución histórica de los formatos, métodos de finalización y características de los luchadores; y segundo, la construcción y evaluación de varios modelos de clasificación (Regresión Logística, LDA, SVM, etc.) para predecir el ganador de un combate.
 
 ## 1. Objetivos principales
-- Explorar y entender la estructura del dataset
+- Explorar y entender la estructura del dataset: Inspeccionar forma, tipos de datos y estadísticas descriptivas iniciales.
 
-- Inspeccionar forma, tipos de datos y estadísticas descriptivas iniciales.
+- Cuantificar y tratar valores faltantes: Identificar columnas con datos incompletos y aplicar imputación (mediana para numéricas, “NO DATA” para categóricas).
 
-- Cuantificar y tratar valores faltantes
+- Visualizar patrones históricos: Analizar la evolución anual de formatos de combate y métodos de victoria (nocaut, sumisión, decisión).
 
-- Identificar columnas con datos incompletos y aplicar imputación (mediana para numéricas, “NO DATA” para categóricas).
+- Describir distribuciones clave: Estudiar la distribución de edades y estadísticas de golpeo de luchadores en esquina roja vs. azul.
 
-- Visualizar patrones históricos
+- Mapear asociaciones y procedencia: Identificar las principales escuelas/asociaciones de luchadores y su distribución por país.
 
-- Analizar la evolución anual de formatos de combate y métodos de victoria (nocaut, sumisión, decisión).
+- Preparar los datos para modelado: Seleccionar variables numéricas, codificar categóricas (p. ej. color de esquina) y escalarlas.
 
-- Describir distribuciones clave
+- Evaluar distintos clasificadores: Comparar precisión (accuracy) de Regresión Logística, LDA, KNN, Árboles de decisión, Naive Bayes y SVM con validación cruzada a 10 folds.
 
-- Estudiar la distribución de edades y estadísticas de golpeo de luchadores en esquina roja vs. azul.
+- Analizar curvas ROC-AUC: Medir la capacidad discriminativa (ROC-AUC) de los tres mejores modelos: LR, LDA y SVM.
 
-- Mapear asociaciones y procedencias
+- Ajustar hiperparámetros del mejor modelo: Utilizar GridSearchCV para optimizar parámetros de SVM (kernel RBF) y maximizar la precisión.
 
-- Identificar las principales escuelas/asociaciones de luchadores y su distribución por país.
-
-- Preparar los datos para modelado
-
-- Seleccionar variables numéricas, codificar categóricas (p. ej. color de esquina) y escalarlas.
-
-- Evaluar distintos clasificadores
-
-- Comparar precisión (accuracy) de Regresión Logística, LDA, KNN, Árboles de decisión, Naive Bayes y SVM con validación cruzada a 10 folds.
-
-- Analizar curvas ROC-AUC
-
-- Medir la capacidad discriminativa (ROC-AUC) de los tres mejores modelos: LR, LDA y SVM.
-
-- Ajustar hiperparámetros del mejor modelo
-
-- Utilizar GridSearchCV para optimizar parámetros de SVM (kernel RBF) y maximizar la precisión.
-
-- Serializar el modelo final
-
-- Guardar el clasificador óptimo (modeloUFC_finalizado_joblib.sav) para su posterior despliegue.
+- Serializar el modelo final: Guardar el clasificador óptimo (modeloUFC_finalizado_joblib.sav) para su posterior despliegue.
 
 ## 2. Principales conclusiones
 - Volumen y calidad de datos: Tras la limpieza, quedaron 5 144 combates con 134 variables numéricas, y en fighters_data persistieron ~93 800 valores nulos en atributos no críticos.
